@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details Form</title>
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .form {
+            border: solid black 1px;
+            border-radius: 40px;
+            padding: 5px 20px 5px 20px;
+            text-align: left;
+            margin-left: 30%;
+            margin-right: 30%;
+            background-color: #f4f4f4;
+        }
+
+        input {
+            padding: 10px 10px 10px 10px;
+            width: 270px;
+            font-size: medium;
+            border: solid #c9c2c2 1px;
+            border-radius: 10px;
+            box-shadow: #c9c2c2 0 2px 0 0;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            padding: 10px 15px;
+            background-color: darkcyan;
+            color: ghostwhite;
+            border: none;
+            font-size: medium;
+            font-weight: 580;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            background-color: rgb(10, 178, 181);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            font-size: small;
+        }
+
+        .invalid-input {
+            border: 2px solid red;
+        }
+
+    </style>
+</head>
+<body>
+
+<form class="form" id="myForm" target="_blank" action="display_data.html" method="GET" onsubmit="return finalValidation()">
+    <h2>Enter Your Details</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" oninput="validateField('name')"><span id="nameError" class="error"></span><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required><br><br>
+
+    <label for="contact">Contact No:</label>
+    <input type="tel" id="contact" name="contact" oninput="validateField('contact')"><span id="contactError" class="error"></span><br><br>
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" oninput="validateField('username')"><span id="usernameError" class="error"></span><br><br>
+
+    <h2>Address</h2>
+    <label for="flatno">Flat/House No:</label>
+    <input type="text" id="flatno" name="flatno" required><br><br>
+
+    <label for="building">Building Name:</label>
+    <input type="text" id="building" name="building" required><br><br>
+
+    <label for="area">Area:</label>
+    <input type="text" id="area" name="area" required><br><br>
+
+    <label for="road">Road:</label>
+    <input type="text" id="road" name="road" required><br><br>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" required><br><br>
+
+    <label for="pincode">Pincode:</label>
+    <input type="text" id="pincode" name="pincode" oninput="validateField('pincode')"><span id="pincodeError" class="error"></span><br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function validateField(fieldName) {
+        let inputElement = document.getElementById(fieldName);
+        let errorElement = document.getElementById(fieldName + "Error");
+        let value = inputElement.value;
+        let isValid = true;
+        let regex;
+        let errorMessage = "";
+
+        // Clear error and remove invalid class
+        errorElement.textContent = "";
+        inputElement.classList.remove("invalid-input");
+
+        switch (fieldName) {
+            case "name":
+                regex = /^(?!\s*$)[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+                errorMessage = "Only alphabets and spaces allowed.";
+                break;
+            case "contact":
+                regex = /^\d{10}$/;
+                errorMessage = "10-digit numbers only.";
+                break;
+            case "username":
+                regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+                errorMessage = "Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 digit.";
+                break;
+            case "pincode":
+                regex = /^\d{6}$/;
+                errorMessage = "6-digit numbers only.";
+                break;
+            default:
+                return; // Exit if field is not validated
+        }
+
+        if (!regex.test(value)) {
+            errorElement.textContent = errorMessage;
+            inputElement.classList.add("invalid-input");
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    function finalValidation() {
+        let fields = ["name", "contact", "username", "pincode"];
+        let allValid = true;
+        fields.forEach(field => {
+            if(!validateField(field)){
+                allValid = false;
+            }
+        });
+        return allValid;
+    }
+
+</script>
+
+</body>
+</html>

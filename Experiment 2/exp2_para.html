@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hide/Show Paragraph</title>
+<style>
+  #myParagraph {
+    /* Initially hidden */
+    display: none; 
+  }
+</style>
+</head>
+<body>
+
+<button >Toggle Paragraph</button>
+
+<p id="myParagraph">This is the paragraph that will be hidden or shown.The JavaScript code dynamically changes the display style of the paragraph element. The display property controls whether an element is shown or hidden.  By toggling between "none" and "block" (or another appropriate display value), we effectively hide and show the paragraph when the button is clicked.</p>
+
+<script>
+    let btn=document.querySelector("button");
+    btn.addEventListener("click",()=>toggleParagraph())
+function toggleParagraph() {
+  const paragraph = document.getElementById("myParagraph");
+  if (paragraph.style.display === "none") {
+    paragraph.style.display = "block"; // Show the paragraph
+  } else {
+    paragraph.style.display = "none"; // Hide the paragraph
+  }
+}
+</script>
+
+</body>
+</html>

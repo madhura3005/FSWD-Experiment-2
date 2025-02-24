@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Data</title>
+    <style>
+         *{
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        h1{
+            text-align: center;
+        }
+        .form{
+            
+            border: solid black 1px ;
+            border-radius: 40px;
+            padding: 5px 20px 5px 20px;
+            text-align: left;
+            margin-left: 30%;
+            margin-right: 30%;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Details</h1>
+
+    <div class="form" id="dataContainer"></div>
+
+    <script>
+        function toSentenceCase(str) {
+            if (!str) return str;
+            str = str.replace(/_/g, ' ');
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataContainer = document.getElementById('dataContainer');
+
+        for (const [key, value] of urlParams) {
+            const dataItem = document.createElement('p');
+            dataItem.textContent = `${toSentenceCase(key)}: ${value}`; // Nicer formatting
+            dataContainer.appendChild(dataItem);
+        }
+    </script>
+</body>
+</html>
